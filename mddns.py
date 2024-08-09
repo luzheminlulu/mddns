@@ -47,7 +47,7 @@ if is_admin():
 		ipv6_addr = f'{result} {device}.hosts'
 		print("\n"+ipv6_addr+'\n')
 		
-		with open('C:/Windows/System32/drivers/etc/hosts','r') as f:
+		with open('C:/Windows/System32/drivers/etc/hosts','r',encoding='utf-8') as f:
 			hosts = f.read()
 		print(hosts)
 		
@@ -61,7 +61,7 @@ if is_admin():
 			hosts += "\n"+ipv6_addr
 		print(hosts)
 		
-		with open('C:/Windows/System32/drivers/etc/hosts','w') as f:
+		with open('C:/Windows/System32/drivers/etc/hosts','w',encoding='utf-8') as f:
 			f.write(hosts)
 	
 else:
