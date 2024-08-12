@@ -8,23 +8,18 @@ from email.mime.image import MIMEImage
 from email.utils import formataddr
 
 def getIPv6Address():
-	i=30
-	while(1):
+	for i in range(30):
 		try:
 			cmd_output = os.popen("ipconfig /all").read()
 			print(cmd_output)
-			result = re.findall(r"([a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})", cmd_output, re.I)
+			result = re.findall(r"(240[a-f0-9](:[a-f0-9]{1,4}){7})", cmd_output, re.I)
 			print(result)
 			ipv6 = "%s"%result[0][0]
 			print("获取ipv6地址成功：%s"%ipv6)
 			return ipv6
 		except:
-			i -= 1
-			print('ipv6获取失败,剩余重试次数：%d次'%i)
-			if(i>0):
-				time.sleep(10)
-			else:
-				break
+			print('ipv6获取失败,重试次数：%d次'%i)
+			time.sleep(10)
 	return "[NULL]"
 
 if __name__ == "__main__":
@@ -38,8 +33,7 @@ if __name__ == "__main__":
 	if(ipv6 != last_ipvaddr_6):
 		print('地址发生变化！')
 
-		i=5
-		while(1):
+		for i in range(5):
 			try:
 				msg=MIMEText("um480 IP地址:<br>%s"%ipv6,'plain','utf-8')
 				msg['From']=formataddr(["lulu",'xxxxx@qq.com'])
@@ -56,13 +50,11 @@ if __name__ == "__main__":
 				print('更新文件成功！')
 				break
 			except:
-				i -= 1
-				print('发生错误,剩余重试次数：%d次！'%i)
-				if(i>0):
-					time.sleep(20)
-				else:
-					break
+				print('发生错误,重试次数：%d次！'%i)
+				time.sleep(20)
 				
 	else:
 		print('地址未发生变化！')
 		pass
+
+
